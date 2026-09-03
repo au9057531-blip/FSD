@@ -1,9 +1,9 @@
 const http = require('http');
 
-const userdata = {
+const userdata = [{
     name: 'AYUSHI',
     age: 18
-};
+}];
 
 const server = http.createServer((req, res) => {
     const url = req.url;
@@ -20,6 +20,33 @@ const server = http.createServer((req, res) => {
     else if (url === '/data' && method === 'GET') {
         res.statusCode = 200;
         res.end(JSON.stringify(userdata));
+    }
+    else if(url=='/create' && method=='post'){
+        const body=" ";
+        res.on('data',(chunk)=>{
+            const newdata= json.parse(body);
+
+            const newUserData={
+                name:newdata.name,
+                age:newdata.age
+            };
+            userdata.push(newUserData);
+            res.end('data update succesfull')
+        });
+    }
+    else if(url.startsWith('/users/')&& method=='GET'){
+        const index=parseInt(url.split('/')[2]);
+        if(index >=0 && index <userdata.length){
+            res.end(JSON.stringify(userdata[index]));
+        }
+        else{
+            res.statusCode=404;
+            res.end('user not found');
+        }
+    }
+    else{
+        res.statusCode=404;
+            res.end('page not found');
     }
     
 });
