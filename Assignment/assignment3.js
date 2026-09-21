@@ -21,8 +21,8 @@ function read (){
 
 
 const newUserData ={
-    name: "Deepak",
-    age: 30,
+    name: "Ayushi",
+    age: 18,
     
 }
 
